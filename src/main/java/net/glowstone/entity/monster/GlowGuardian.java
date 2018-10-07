@@ -25,8 +25,13 @@ public class GlowGuardian extends GlowMonster implements Guardian {
 
     @Override
     public void setElder(boolean elder) {
-        //TODO - 1.11 Field has been removed
-        //metadata.setBit(MetadataIndex.GUARDIAN_FLAGS, 0x04, elder);
+        if(!isElder() && elder) {
+    		GlowElderGuardian glowElderGuardian = new GlowElderGuardian(this.location);
+    		this.remove();
+    	}else if (!elder && isElder()) {
+			GlowGuardian glowGuardian = new GlowGuardian(this.location);
+			this.remove();
+		}
     }
 
     @Override
